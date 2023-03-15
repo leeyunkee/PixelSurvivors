@@ -1,0 +1,10 @@
+res://World/world.tscn
+res://Player/player.gd
+res://Utility/enemy_spawner.gd
+res://Scripts/GlobalData.gd
+res://Player/player.tscn
+res://die.tscn
+res://Utility/basic_button.tscn
+res://Utility/enemy_spawner.tscn
+res://Titlescreen/menu.tscn
+res://Player/GlobalData.gd

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://Utility/hurtbox.gd" id="1_ojrxw"]
+[ext_resource type="AudioStream" uid="uid://b1ahnti48xca2" path="res://Audio/SoundEffect/sfx_loss.ogg" id="2_avg0v"]
+
+[node name="Hurtbox" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ojrxw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="DisableTimer" type="Timer" parent="."]
+
+[node name="snd_hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_avg0v")
+volume_db = -20.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="DisableTimer" to="." method="_on_disable_timer_timeout"]

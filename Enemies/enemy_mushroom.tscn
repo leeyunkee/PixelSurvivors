@@ -1,0 +1,146 @@
+[gd_scene load_steps=22 format=3 uid="uid://du4hqk3puwrss"]
+
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_cmkxt"]
+[ext_resource type="Texture2D" uid="uid://cqkaoxo1vbmfn" path="res://Textures/Enemy/Mushroom/mushroom-die-tile000.png" id="6_q4fkl"]
+[ext_resource type="Texture2D" uid="uid://cgw4ntfvj7ujj" path="res://Textures/Enemy/Mushroom/mushroom-die-tile001.png" id="7_v1guh"]
+[ext_resource type="Texture2D" uid="uid://cwaty311yxdq6" path="res://Textures/Enemy/Mushroom/mushroom-die-tile002.png" id="8_600pi"]
+[ext_resource type="Texture2D" uid="uid://bwjcrgyt1288g" path="res://Textures/Enemy/Mushroom/mushroom-die-tile003.png" id="9_p2o6l"]
+[ext_resource type="Texture2D" uid="uid://cwe7upiu8wao2" path="res://Textures/Enemy/Mushroom/mushroom-tile000.png" id="10_owuhx"]
+[ext_resource type="Texture2D" uid="uid://duatk5ew4g3ib" path="res://Textures/Enemy/Mushroom/mushroom-tile001.png" id="11_uwm0x"]
+[ext_resource type="Texture2D" uid="uid://dps0sc8v3idr" path="res://Textures/Enemy/Mushroom/mushroom-tile002.png" id="12_4qgwg"]
+[ext_resource type="Texture2D" uid="uid://bxqiytbyc8b2q" path="res://Textures/Enemy/Mushroom/mushroom-tile003.png" id="13_eqgaq"]
+[ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="14_q2m1a"]
+[ext_resource type="Texture2D" uid="uid://dhttxkamw8mag" path="res://Textures/Enemy/Mushroom/mushroom-tile004.png" id="14_t0lpf"]
+[ext_resource type="Texture2D" uid="uid://ca42r2xn60osq" path="res://Textures/Enemy/Mushroom/mushroom-tile005.png" id="15_oh5oy"]
+[ext_resource type="Texture2D" uid="uid://7gsu7mjn8kli" path="res://Textures/Enemy/Mushroom/mushroom-tile006.png" id="16_n5pa2"]
+[ext_resource type="Texture2D" uid="uid://btcfca8d5v4l1" path="res://Textures/Enemy/Mushroom/mushroom-tile007.png" id="17_vg5e5"]
+[ext_resource type="PackedScene" path="res://Utility/hurtbox.tscn" id="18_dagqa"]
+[ext_resource type="PackedScene" uid="uid://o3ba3tf4ufpp" path="res://Utility/hit_box.tscn" id="19_lt6b7"]
+[ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="20_mbh4e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilkns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_q4fkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v1guh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_600pi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_p2o6l")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_owuhx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_uwm0x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4qgwg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_eqgaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_t0lpf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_oh5oy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_n5pa2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_vg5e5")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d5qu"]
+radius = 7.78568
+height = 96.5565
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
+size = Vector2(20, 32.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
+size = Vector2(18.2588, 32.9835)
+
+[node name="enemy_mushroom" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_cmkxt")
+hp = 30
+knockback_recovery = 2.0
+experience = 7
+enemy_damage = 22
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"move"
+autoplay = "move"
+speed_scale = 1.2
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"die"
+autoplay = "die"
+flip_h = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+show_behind_parent = true
+texture_filter = 2
+position = Vector2(-1, 21)
+scale = Vector2(0.05, 0.035)
+texture = ExtResource("14_q2m1a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1, 8)
+scale = Vector2(0.899087, 0.248559)
+shape = SubResource("CapsuleShape2D_6d5qu")
+
+[node name="Hurtbox" parent="." instance=ExtResource("18_dagqa")]
+collision_mask = 4
+HurtboxType = 1
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+visible = false
+position = Vector2(-1, 6.75)
+shape = SubResource("RectangleShape2D_kf3hv")
+
+[node name="HitBox" parent="." instance=ExtResource("19_lt6b7")]
+scale = Vector2(0.87629, 0.879228)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+visible = false
+position = Vector2(5.9857e-06, 9.66757)
+shape = SubResource("RectangleShape2D_226lh")
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_mbh4e")
+volume_db = -20.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+
+[editable path="Hurtbox"]
+[editable path="HitBox"]
