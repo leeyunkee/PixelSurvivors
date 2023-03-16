@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqgcfunx5o1at"]
+
+[ext_resource type="Script" path="res://Mapmenu.gd" id="1_mwxfi"]
+[ext_resource type="PackedScene" uid="uid://c0ptuykjaowxg" path="res://Utility/basic_button.tscn" id="2_swhs5"]
+
+[node name="Mapmenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mwxfi")
+
+[node name="Button" parent="." instance=ExtResource("2_swhs5")]
+layout_mode = 0
+offset_left = 191.0
+offset_top = 97.0
+offset_right = 271.0
+offset_bottom = 127.0
+text = "Map 1"
+
+[node name="Button2" parent="." instance=ExtResource("2_swhs5")]
+layout_mode = 0
+offset_left = 428.0
+offset_top = 95.0
+offset_right = 508.0
+offset_bottom = 125.0
+text = "Map 2"
+
+[connection signal="click_end" from="Button" to="." method="_on_button_click_end"]
+[connection signal="click_end" from="Button2" to="." method="_on_button_2_click_end"]

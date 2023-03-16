@@ -12,3 +12,4 @@ func _on_pressed():
 
 func _on_snd_click_finished():
 	emit_signal("click_end")
+

@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
-var movement_speed = 50.0
-var hp = 100
-var maxhp = 100
-var last_movement = Vector2.UP
-var time = 0
+@export var movement_speed = 50.0
+@export var hp = 100
+@export var maxhp = 100
+@export var last_movement = Vector2.UP
+@export var time = 0
 
-var experience = 0
-var experience_level = 1
-var collected_experience = 0
+@export var experience = 0
+@export var experience_level = 1
+@export var collected_experience = 0
 
 #Attacks
 var fireBall = preload("res://Player/Spell/fire_ball.tscn")
@@ -21,25 +21,25 @@ var fireCore = preload("res://Player/Spell/fire_core.tscn")
 @onready var FireCoreAttackTimer = $Attack/FireCoreTimer/FireCoreAttackTimer
 
 #UPGRADES
-var collected_upgrades = []
-var upgrades_options = []
-var armor = 0
-var speed = 0
-var spell_cooldown = 0
-var spell_size = 0
-var additional_attacks = 0
+@export var collected_upgrades = []
+@export var upgrades_options = []
+@export var armor = 0
+@export var speed = 0
+@export var spell_cooldown = 0
+@export var spell_size = 0
+@export var additional_attacks = 0
 
 #FireBall
-var fireball_ammo = 0
-var fireball_baseammo = 0
-var fireball_attackspeed = 1.5
-var fireball_level = 0
+@export var fireball_ammo = 0
+@export var fireball_baseammo = 0
+@export var fireball_attackspeed = 1.5
+@export var fireball_level = 0
 
 #FireCore
-var firecore_ammo = 0
-var firecore_baseammo = 0
-var firecore_attackspeed = 3
-var firecore_level = 0
+@export var firecore_ammo = 0
+@export var firecore_baseammo = 0
+@export var firecore_attackspeed = 3
+@export var firecore_level = 0
 
 #Enemy_Related
 var enemy_close = []
@@ -72,13 +72,6 @@ func _ready():
 	attack()
 	set_expbar(experience, calculate_experiencecap())
 	_on_hurtbox_hurt(0,0,0)
-	
-	hp = "150"
-	
-	GlobalData.save(0)
-	GlobalData.load_game(0)
-	
-	print(hp)
 
 func _physics_process(delta):
 	movement()

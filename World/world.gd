@@ -1,7 +1,18 @@
-extends Node
+extends Node2D
 
 @onready var player = $Player
 
+func _on_save_pressed():
+	GlobalData.save(GlobalData.SAVE_PATH0)
+
+
+func _on_print_pressed():
+	print(GlobalData.data)
+
+
+func _on_load_pressed():
+	GlobalData.load_game(GlobalData.SAVE_PATH0)
+	
 const SAVE_PATH0: String = "user://savegame0.bin"
 const SAVE_PATH1: String = "user://savegame1.bin"
 const SAVE_PATH2: String = "user://savegame2.bin"
