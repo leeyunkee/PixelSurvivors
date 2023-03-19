@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bv87m0odrow64"]
+[gd_scene load_steps=2 format=3 uid="uid://oby5hadkaluo"]
 
-[ext_resource type="Script" path="res://Die.gd" id="5_eb8ry"]
+[ext_resource type="Script" path="res://Utility/Die.gd" id="1_6sawm"]
 
 [node name="Die" type="AnimatedSprite2D"]
 z_index = 1
-script = ExtResource("5_eb8ry")
+script = ExtResource("1_6sawm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 

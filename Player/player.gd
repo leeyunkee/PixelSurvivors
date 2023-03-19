@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
-@export var movement_speed = 50.0
-@export var hp = 100
-@export var maxhp = 100
-@export var last_movement = Vector2.UP
-@export var time = 0
+var movement_speed = 50.0
+var maxhp = 50
+var hp = 50
+var last_movement = Vector2.UP
+var time = 0
 
-@export var experience = 0
-@export var experience_level = 1
-@export var collected_experience = 0
+var experience = 0
+var experience_level = 1
+var collected_experience = 0
 
 #Attacks
 var fireBall = preload("res://Player/Spell/fire_ball.tscn")
@@ -21,25 +21,25 @@ var fireCore = preload("res://Player/Spell/fire_core.tscn")
 @onready var FireCoreAttackTimer = $Attack/FireCoreTimer/FireCoreAttackTimer
 
 #UPGRADES
-@export var collected_upgrades = []
-@export var upgrades_options = []
-@export var armor = 0
-@export var speed = 0
-@export var spell_cooldown = 0
-@export var spell_size = 0
-@export var additional_attacks = 0
+var collected_upgrades = []
+var upgrades_options = []
+var armor = 0
+var speed = 0
+var spell_cooldown = 0
+var spell_size = 0
+var additional_attacks = 0
 
 #FireBall
-@export var fireball_ammo = 0
-@export var fireball_baseammo = 0
-@export var fireball_attackspeed = 1.5
-@export var fireball_level = 0
+var fireball_ammo = 0
+var fireball_baseammo = 0
+var fireball_attackspeed = 1.5
+var fireball_level = 0
 
 #FireCore
-@export var firecore_ammo = 0
-@export var firecore_baseammo = 0
-@export var firecore_attackspeed = 3
-@export var firecore_level = 0
+var firecore_ammo = 0
+var firecore_baseammo = 0
+var firecore_attackspeed = 3
+var firecore_level = 0
 
 #Enemy_Related
 var enemy_close = []
@@ -53,7 +53,7 @@ var enemy_close = []
 @onready var upgradeOptions = get_node("%upgradeOptions")
 @onready var itemOptions = preload("res://Utility/item_option.tscn")
 @onready var sndLevelUp = get_node("%snd_levelup")
-@onready var healthBar = get_node("%HealthBar")
+@onready var healthBar = get_node("HealthBar")
 @onready var lblTimer = get_node("%lblTimer")
 @onready var collectedWeapons = get_node("%CollectedWeapons")
 @onready var collectedUpgrades = get_node("%CollectedUpgrades")
@@ -65,16 +65,23 @@ var enemy_close = []
 @onready var sndLose = get_node("%snd_lose")
 
 #signal
-signal playerdeath
+signal playerdeath()
 
 func _ready():
 	upgrade_character("fireball1")
 	attack()
 	set_expbar(experience, calculate_experiencecap())
-	_on_hurtbox_hurt(0,0,0)
+	_on_hitbox_hurt(0,0,0)
+	
+	
+	SaveAndLoad.save(0)
+	SaveAndLoad.load_game(0)
+	
 
 func _physics_process(delta):
+	time += delta
 	movement()
+	
 
 func movement():
 	var x_mov = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -106,12 +113,14 @@ func attack():
 		if FireCoreTimer.is_stopped():
 			FireCoreTimer.start()
 
-func _on_hurtbox_hurt(damage, _angle, _knockback):
+func _on_hitbox_hurt(damage, _angle, _knockback):
 	hp -= clamp(damage-armor, 1.0, 999.0)
+	snd_hurt.play()
 	if hp <= 0:
 		death()
 	healthBar.max_value = maxhp
 	healthBar.value = hp
+	print(hp)
 
 func death():
 	deathPanel.visible = true
@@ -303,30 +312,31 @@ func get_random_item():
 		elif UpgradeDb.UPGRADES[i]["type"] == "item": #Don't pick food
 			pass
 		elif UpgradeDb.UPGRADES[i]["prereq"].size() > 0: #Check for pre-req
-			var to_add = true
 			for n in UpgradeDb.UPGRADES[i]["prereq"]:
 				if not n in collected_upgrades:
-					to_add = false
-			if to_add:
-				dblist.append(i)
-		else:
+					pass
+				else:
+					dblist.append(i)
+		else: #If there are no prequisites
 			dblist.append(i)
 	if dblist.size() > 0:
-		var randomitem = dblist.pick_random()
+		var randomitem = dblist[randi_range(0,dblist.size()-1)]
 		upgrades_options.append(randomitem)
 		return randomitem
 	else:
 		return null
 
-func change_time(argtime = 0):
-	time = argtime
+func change_time():
 	var get_m = int(time/60.0)
-	var get_s = time % 60
+	var get_s = int(time) % 60
 	if get_m < 10:
 		get_m = str(0,get_m)
 	if get_s < 10:
 		get_s = str(0,get_s)
+	player.time = time
+	player.currrent_position = self.position
 	lblTimer.text = str(get_m,":",get_s)
+	
 
 func adjust_gui_collection(upgrade):
 	var get_upgraded_displayname = UpgradeDb.UPGRADES[upgrade]["displayname"]

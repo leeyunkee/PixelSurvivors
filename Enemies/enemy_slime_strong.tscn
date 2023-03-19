@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://durc6ssx5mb0c"]
+[gd_scene load_steps=23 format=3 uid="uid://depu1lrewxvfd"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_hxqil"]
 [ext_resource type="Texture2D" uid="uid://bsjmmsehknyum" path="res://Textures/Enemy/Slime_Strong/slime-strong-die-0.png" id="2_3jlw7"]
@@ -11,8 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://cdh47hsgs8a8x" path="res://Textures/Enemy/Slime_Strong/slime-strong-move-2.png" id="8_wrtsq"]
 [ext_resource type="Texture2D" uid="uid://cuo38sgootfeg" path="res://Textures/Enemy/Slime_Strong/slime-strong-move-3.png" id="9_6f7ue"]
 [ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="10_paske"]
-[ext_resource type="PackedScene" path="res://Utility/hurtbox.tscn" id="14_1dy7m"]
-[ext_resource type="PackedScene" uid="uid://o3ba3tf4ufpp" path="res://Utility/hit_box.tscn" id="15_eogwm"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="14_1dy7m"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="15_eogwm"]
 [ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="16_10d4m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hcraq"]
@@ -103,18 +103,17 @@ radius = 11.1224
 height = 48.2783
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
-size = Vector2(21, 12)
+size = Vector2(35, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
-size = Vector2(28.5294, 14.7857)
+size = Vector2(25.1058, 13.0797)
 
 [node name="enemy_slime_strong" type="CharacterBody2D"]
 collision_layer = 5
-collision_mask = 5
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_hxqil")
 movement_speed = 42.0
-enemy_damage = 15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -151,31 +150,33 @@ position = Vector2(1, 7)
 scale = Vector2(0.899087, 0.248559)
 shape = SubResource("CapsuleShape2D_6d5qu")
 
-[node name="Hurtbox" parent="." instance=ExtResource("14_1dy7m")]
+[node name="Hitbox" parent="." instance=ExtResource("14_1dy7m")]
+collision_layer = 4
 collision_mask = 4
-HurtboxType = 1
 
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
-visible = false
-position = Vector2(0.5, 7)
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0.5, 6.5)
 shape = SubResource("RectangleShape2D_kf3hv")
 
-[node name="HitBox" parent="." instance=ExtResource("15_eogwm")]
+[node name="Hurtbox" parent="." instance=ExtResource("15_eogwm")]
 scale = Vector2(0.87629, 0.879228)
 collision_layer = 2
 collision_mask = 2
+damage = 5
 
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-visible = false
-position = Vector2(1.71176, 7.39285)
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(1.36039e-07, 8.81455)
 shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
 
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_10d4m")
 volume_db = -20.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
-[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
 
+[editable path="Hitbox"]
 [editable path="Hurtbox"]
-[editable path="HitBox"]

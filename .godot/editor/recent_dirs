@@ -1,5 +1,7 @@
-res://Utility
+res://World
 res://
+res://Utility
+res://Player
 res://Scripts
 res://addons/virtual_joystick/scripts
 H:/Games
@@ -12,4 +14,3 @@ res://Player/GUI
 res://Object
 res://Player/Spell
 res://Enemies
-res://Player

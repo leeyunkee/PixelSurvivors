@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://du4hqk3puwrss"]
+[gd_scene load_steps=22 format=3 uid="uid://kvdgeyjeaqj2"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_cmkxt"]
 [ext_resource type="Texture2D" uid="uid://cqkaoxo1vbmfn" path="res://Textures/Enemy/Mushroom/mushroom-die-tile000.png" id="6_q4fkl"]
@@ -14,8 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://ca42r2xn60osq" path="res://Textures/Enemy/Mushroom/mushroom-tile005.png" id="15_oh5oy"]
 [ext_resource type="Texture2D" uid="uid://7gsu7mjn8kli" path="res://Textures/Enemy/Mushroom/mushroom-tile006.png" id="16_n5pa2"]
 [ext_resource type="Texture2D" uid="uid://btcfca8d5v4l1" path="res://Textures/Enemy/Mushroom/mushroom-tile007.png" id="17_vg5e5"]
-[ext_resource type="PackedScene" path="res://Utility/hurtbox.tscn" id="18_dagqa"]
-[ext_resource type="PackedScene" uid="uid://o3ba3tf4ufpp" path="res://Utility/hit_box.tscn" id="19_lt6b7"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="18_dagqa"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="19_lt6b7"]
 [ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="20_mbh4e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ilkns"]
@@ -72,20 +72,19 @@ radius = 7.78568
 height = 96.5565
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
-size = Vector2(20, 32.5)
+size = Vector2(26, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
 size = Vector2(18.2588, 32.9835)
 
 [node name="enemy_mushroom" type="CharacterBody2D"]
 collision_layer = 5
-collision_mask = 5
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_cmkxt")
 hp = 30
 knockback_recovery = 2.0
 experience = 7
-enemy_damage = 22
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -116,31 +115,34 @@ position = Vector2(-1, 8)
 scale = Vector2(0.899087, 0.248559)
 shape = SubResource("CapsuleShape2D_6d5qu")
 
-[node name="Hurtbox" parent="." instance=ExtResource("18_dagqa")]
+[node name="Hitbox" parent="." instance=ExtResource("18_dagqa")]
+collision_layer = 4
 collision_mask = 4
-HurtboxType = 1
 
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
 visible = false
-position = Vector2(-1, 6.75)
+position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_kf3hv")
 
-[node name="HitBox" parent="." instance=ExtResource("19_lt6b7")]
+[node name="Hurtbox" parent="." instance=ExtResource("19_lt6b7")]
 scale = Vector2(0.87629, 0.879228)
 collision_layer = 2
 collision_mask = 2
+damage = 8
 
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-visible = false
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(5.9857e-06, 9.66757)
 shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
 
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_mbh4e")
 volume_db = -20.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
-[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
 
+[editable path="Hitbox"]
 [editable path="Hurtbox"]
-[editable path="HitBox"]

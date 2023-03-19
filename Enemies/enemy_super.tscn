@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1k5oduyoi0ed"]
+[gd_scene load_steps=18 format=3 uid="uid://lw4rtka65thf"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_ot3gm"]
 [ext_resource type="Texture2D" uid="uid://pshnkpbiat13" path="res://Textures/Enemy/FlyingEye/eye-die-tile000.png" id="6_dkasy"]
@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cs0y24b60v5w6" path="res://Textures/Enemy/Golem/golem-tile002.png" id="12_j4562"]
 [ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="13_hodec"]
 [ext_resource type="Texture2D" uid="uid://cofceshu1c6rq" path="res://Textures/Enemy/Golem/golem-tile003.png" id="13_jjvcb"]
-[ext_resource type="PackedScene" path="res://Utility/hurtbox.tscn" id="18_fkmcy"]
-[ext_resource type="PackedScene" uid="uid://o3ba3tf4ufpp" path="res://Utility/hit_box.tscn" id="19_a0hm5"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="18_fkmcy"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="19_a0hm5"]
 [ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="20_kcpxw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ilkns"]
@@ -51,26 +51,24 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d5qu"]
-radius = 7.78568
-height = 64.371
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cek8"]
+size = Vector2(26.6937, 102.533)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
-size = Vector2(37, 35.5)
+size = Vector2(49, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
 size = Vector2(42.4165, 38.6703)
 
 [node name="enemy_super" type="CharacterBody2D"]
 collision_layer = 5
-collision_mask = 5
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_ot3gm")
 movement_speed = 150.0
 hp = 999999
 knockback_recovery = 99999.0
 experience = 100
-enemy_damage = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -88,30 +86,33 @@ autoplay = "die"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-5, 4)
+position = Vector2(-1, 1.25721)
 scale = Vector2(0.899087, 0.248559)
-shape = SubResource("CapsuleShape2D_6d5qu")
+shape = SubResource("RectangleShape2D_3cek8")
 disabled = true
 
-[node name="Hurtbox" parent="." instance=ExtResource("18_fkmcy")]
-collision_mask = 4
-HurtboxType = 1
-
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+[node name="Hitbox" parent="." instance=ExtResource("18_fkmcy")]
 visible = false
-position = Vector2(-0.5, -3.25)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-0.5, -3)
 shape = SubResource("RectangleShape2D_kf3hv")
 
-[node name="HitBox" parent="." instance=ExtResource("19_a0hm5")]
+[node name="Hurtbox" parent="." instance=ExtResource("19_a0hm5")]
+visible = false
 scale = Vector2(0.87629, 0.879228)
 collision_layer = 2
 collision_mask = 2
+damage = 30
 
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-visible = false
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(1.61525, -3.41209)
 shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
 
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("20_kcpxw")
@@ -126,7 +127,7 @@ scale = Vector2(0.0640836, 0.047945)
 texture = ExtResource("13_hodec")
 
 [connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
-[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
 
+[editable path="Hitbox"]
 [editable path="Hurtbox"]
-[editable path="HitBox"]

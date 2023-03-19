@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dt1s5aoxwrn3e"]
+[gd_scene load_steps=22 format=3 uid="uid://cmfkbalwoppqx"]
 
 [ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_go0is"]
 [ext_resource type="Texture2D" uid="uid://pshnkpbiat13" path="res://Textures/Enemy/FlyingEye/eye-die-tile000.png" id="6_sjr5v"]
@@ -9,11 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://htdn2qoba6bf" path="res://Textures/Enemy/FlyingEye/eye-tile001.png" id="11_mg1qu"]
 [ext_resource type="Texture2D" uid="uid://bnblyr8wefy50" path="res://Textures/Enemy/FlyingEye/eye-tile002.png" id="12_w6x3g"]
 [ext_resource type="Texture2D" uid="uid://bm3uperyfwa66" path="res://Textures/Enemy/FlyingEye/eye-tile003.png" id="13_l7x0c"]
-[ext_resource type="PackedScene" path="res://Utility/hurtbox.tscn" id="14_3ucyl"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="14_3ucyl"]
 [ext_resource type="Texture2D" uid="uid://dvt76ut6rndo1" path="res://Textures/Enemy/FlyingEye/eye-tile004.png" id="14_umolj"]
 [ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="14_vkd1k"]
 [ext_resource type="Texture2D" uid="uid://cqjeo5hpd6g7d" path="res://Textures/Enemy/FlyingEye/eye-tile005.png" id="15_l58ev"]
-[ext_resource type="PackedScene" uid="uid://o3ba3tf4ufpp" path="res://Utility/hit_box.tscn" id="15_tns0h"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="15_tns0h"]
 [ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="16_7winm"]
 [ext_resource type="Texture2D" uid="uid://civ3df1d1g86j" path="res://Textures/Enemy/FlyingEye/eye-tile006.png" id="16_cdglt"]
 [ext_resource type="Texture2D" uid="uid://bo2um2c73k420" path="res://Textures/Enemy/FlyingEye/eye-tile007.png" id="17_53o6b"]
@@ -72,20 +72,19 @@ radius = 7.78568
 height = 64.371
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
-size = Vector2(22, 23)
+size = Vector2(41, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
-size = Vector2(28.7224, 26.1593)
+size = Vector2(41.0823, 26.1593)
 
 [node name="enemy_flying_eye" type="CharacterBody2D"]
-collision_layer = 5
-collision_mask = 5
+collision_layer = 4
+collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_go0is")
 hp = 25
 knockback_recovery = 4.0
 experience = 5
-enemy_damage = 25
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -115,31 +114,34 @@ position = Vector2(-5, 4)
 scale = Vector2(0.899087, 0.248559)
 shape = SubResource("CapsuleShape2D_6d5qu")
 
-[node name="Hurtbox" parent="." instance=ExtResource("14_3ucyl")]
-collision_mask = 4
-HurtboxType = 1
+[node name="Hitbox" parent="." instance=ExtResource("14_3ucyl")]
+collision_layer = 5
+HitBoxType = 1
 
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
 visible = false
-position = Vector2(-4, 3)
+position = Vector2(2.5, 0.5)
 shape = SubResource("RectangleShape2D_kf3hv")
 
-[node name="HitBox" parent="." instance=ExtResource("15_tns0h")]
+[node name="Hurtbox" parent="." instance=ExtResource("15_tns0h")]
 scale = Vector2(0.87629, 0.879228)
 collision_layer = 2
 collision_mask = 2
+damage = 9
 
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-visible = false
-position = Vector2(-5.23179, 2.8434)
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(4.5647, 2.8434)
 shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
 
 [node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("16_7winm")
 volume_db = -20.0
 
 [connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
-[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
 
+[editable path="Hitbox"]
 [editable path="Hurtbox"]
-[editable path="HitBox"]
