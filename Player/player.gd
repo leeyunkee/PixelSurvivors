@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 var movement_speed = 50.0
 var maxhp = 50
-var hp = 50
 var last_movement = Vector2.UP
 var time = 0
 
@@ -54,7 +53,7 @@ var enemy_close = []
 @onready var itemOptions = preload("res://Utility/item_option.tscn")
 @onready var sndLevelUp = get_node("%snd_levelup")
 @onready var healthBar = get_node("HealthBar")
-@onready var lblTimer = get_node("%lblTimer")
+@onready var lblTimer = get_node("GUILayer/GUI/lblTimer")
 @onready var collectedWeapons = get_node("%CollectedWeapons")
 @onready var collectedUpgrades = get_node("%CollectedUpgrades")
 @onready var itemContainer = preload("res://Player/GUI/item_container.tscn")
@@ -80,6 +79,8 @@ func _ready():
 
 func _physics_process(delta):
 	time += delta
+	change_time()
+	healthBar.value = player.hp
 	movement()
 	
 
@@ -114,13 +115,11 @@ func attack():
 			FireCoreTimer.start()
 
 func _on_hitbox_hurt(damage, _angle, _knockback):
-	hp -= clamp(damage-armor, 1.0, 999.0)
+	player.hp -= clamp(damage-armor, 1.0, 999.0)
 	snd_hurt.play()
-	if hp <= 0:
+	if player.hp <= 0:
 		death()
 	healthBar.max_value = maxhp
-	healthBar.value = hp
-	print(hp)
 
 func death():
 	deathPanel.visible = true
@@ -170,6 +169,9 @@ func _on_fire_core_attack_timer_timeout():
 		else: 
 			FireCoreAttackTimer.stop()
 
+
+	
+	
 
 func get_random_target():
 	if enemy_close.size() > 0:
@@ -288,8 +290,8 @@ func upgrade_character(upgrade):
 		"ring1","ring2":
 			additional_attacks += 1
 		"food":
-			hp += 20
-			hp = clamp(hp,0,maxhp)
+			player.hp += 20
+			player.hp = clamp(player.hp,0,maxhp)
 	adjust_gui_collection(upgrade)
 	attack()
 	var option_children = upgradeOptions.get_children()
@@ -326,6 +328,8 @@ func get_random_item():
 	else:
 		return null
 
+	
+
 func change_time():
 	var get_m = int(time/60.0)
 	var get_s = int(time) % 60
@@ -335,8 +339,7 @@ func change_time():
 		get_s = str(0,get_s)
 	player.time = time
 	player.currrent_position = self.position
-	lblTimer.text = str(get_m,":",get_s)
-	
+	lblTimer.text = str(get_m, ":", get_s)
 
 func adjust_gui_collection(upgrade):
 	var get_upgraded_displayname = UpgradeDb.UPGRADES[upgrade]["displayname"]

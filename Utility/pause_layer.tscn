@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh2to7vgg31sf"]
+
+[ext_resource type="Script" path="res://World/world.gd" id="1_34q2j"]
+[ext_resource type="PackedScene" uid="uid://c8omeri7fty5a" path="res://World/pause_controller.tscn" id="2_dxkf4"]
+
+[node name="Pause Layer" type="CanvasLayer"]
+process_mode = 3
+visible = false
+script = ExtResource("1_34q2j")
+
+[node name="pauseController" parent="." instance=ExtResource("2_dxkf4")]
+
+[connection signal="pressed" from="pauseController/Panel/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="pauseController/Panel/VBoxContainer/Load" to="." method="_on_load_pressed"]
+
+[editable path="pauseController"]

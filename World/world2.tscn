@@ -16,7 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://c51uvktpg061n" path="res://Audio/Music/RadagonExtended.mp3" id="13_5vy8h"]
 [ext_resource type="Script" path="res://Audio/Music/snd_Music.gd" id="14_1ehgo"]
 [ext_resource type="Script" path="res://Scripts/SaveAndLoad.gd" id="15_wotw7"]
-[ext_resource type="Script" path="res://World/world.gd" id="16_53e5n"]
+[ext_resource type="PackedScene" uid="uid://bh2to7vgg31sf" path="res://Utility/pause_layer.tscn" id="17_ywci5"]
 
 [sub_resource type="Resource" id="Resource_ovsay"]
 script = ExtResource("6_n4cpm")
@@ -114,10 +114,10 @@ script = ExtResource("14_1ehgo")
 [node name="SaveandLoad" type="Node2D" parent="."]
 script = ExtResource("15_wotw7")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-process_mode = 3
-visible = false
-script = ExtResource("16_53e5n")
+[node name="Pause Layer" parent="." instance=ExtResource("17_ywci5")]
 
 [connection signal="playerdeath" from="Player" to="snd_Music" method="_on_player_playerdeath"]
-[connection signal="load_me" from="CanvasLayer" to="." method="_on_canvas_layer_load_me"]
+[connection signal="load_me" from="Pause Layer" to="." method="_on_canvas_layer_load_me"]
+
+[editable path="Pause Layer"]
+[editable path="Pause Layer/pauseController"]
