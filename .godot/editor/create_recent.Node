@@ -1,13 +1,13 @@
+virtual_joystick
+Button
 Label
 TileMap
 CanvasLayer
 Panel
-Button
 VBoxContainer
 Control
 Node
 Node2D
-virtual_joystick
 AudioStreamPlayer
 Sprite2D
 DirectionalLight2D

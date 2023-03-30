@@ -118,6 +118,7 @@ script = ExtResource("15_wotw7")
 
 [connection signal="playerdeath" from="Player" to="snd_Music" method="_on_player_playerdeath"]
 [connection signal="load_me" from="Pause Layer" to="." method="_on_canvas_layer_load_me"]
+[connection signal="pressed" from="Pause Layer/pauseController/Panel/Exit" to="Pause Layer" method="_on_exit_pressed"]
 
 [editable path="Pause Layer"]
 [editable path="Pause Layer/pauseController"]

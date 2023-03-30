@@ -81,9 +81,12 @@ func _physics_process(delta):
 	time += delta
 	change_time()
 	healthBar.value = player.hp
-	movement()
+	move_and_slide()
 	
 
+func _on_virtual_joystick_analogic_chage(move:Vector2):
+	velocity = move * movement_speed
+	
 func movement():
 	var x_mov = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var y_mov = Input.get_action_strength("down") - Input.get_action_strength("up")
@@ -361,3 +364,5 @@ func adjust_gui_collection(upgrade):
 func _on_btn_menu_click_end():
 	get_tree().paused = false
 	var _level = get_tree().change_scene_to_file("res://Titlescreen/menu.tscn")
+
+

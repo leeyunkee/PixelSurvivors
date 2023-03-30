@@ -22,11 +22,11 @@ func _on_save_pressed():
 	self.hide()
 	get_tree().paused = false	
 
-
-
 func _on_load_pressed():
 	SaveAndLoad.load_game(0)
 	self.hide()
 	get_tree().paused = false
 	emit_signal("load_me")
 	
+func _on_exit_pressed():
+	get_tree().quit(0)
