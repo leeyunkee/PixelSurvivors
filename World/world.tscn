@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bv4krtqmxrmft"]
+[gd_scene load_steps=30 format=3 uid="uid://bv4krtqmxrmft"]
 
 [ext_resource type="Texture2D" uid="uid://d1cvt0poyr0bq" path="res://Textures/TX Tileset Grass.png" id="1_01vhy"]
 [ext_resource type="Script" path="res://World/LoadPlayerNodeData.gd" id="1_5t4fh"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Audio/Music/snd_Music.gd" id="13_hn5b7"]
 [ext_resource type="Script" path="res://Scripts/SaveAndLoad.gd" id="15_vg0rj"]
 [ext_resource type="PackedScene" uid="uid://c8omeri7fty5a" path="res://World/pause_controller.tscn" id="17_h3tnp"]
+[ext_resource type="Script" path="res://addons/virtual_joystick/scripts/virtual_joystick.gd" id="18_e1sdk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yp2ht"]
 texture = ExtResource("1_01vhy")
@@ -378,6 +379,10 @@ script = ExtResource("13_hn5b7")
 [node name="SaveandLoad" type="Node2D" parent="."]
 script = ExtResource("15_vg0rj")
 
+[node name="virtual_joystick" type="Node2D" parent="."]
+position = Vector2(-236, 102)
+script = ExtResource("18_e1sdk")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 visible = false
@@ -386,9 +391,11 @@ script = ExtResource("1_c4dk7")
 [node name="pauseController" parent="CanvasLayer" instance=ExtResource("17_h3tnp")]
 
 [connection signal="playerdeath" from="Player" to="snd_Music" method="_on_player_playerdeath"]
+[connection signal="analogic_chage" from="virtual_joystick" to="Player" method="_on_virtual_joystick_analogic_chage"]
 [connection signal="load_me" from="CanvasLayer" to="." method="_on_canvas_layer_load_me"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Save" to="CanvasLayer" method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Load" to="CanvasLayer" method="_on_load_pressed"]
+[connection signal="pressed" from="CanvasLayer/pauseController/Panel/Exit" to="CanvasLayer" method="_on_exit_pressed"]
 
 [editable path="Player"]
 [editable path="Player/Hitbox"]

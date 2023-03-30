@@ -1,16 +1,19 @@
+<<<<<<< HEAD
 CollisionShape2D
 Area2D
 TouchScreenButton
+=======
+virtual_joystick
+Button
+>>>>>>> b61d2aad519141e83929f53ae0dfac36d3020ef6
 Label
 TileMap
 CanvasLayer
 Panel
-Button
 VBoxContainer
 Control
 Node
 Node2D
-virtual_joystick
 AudioStreamPlayer
 Sprite2D
 DirectionalLight2D
