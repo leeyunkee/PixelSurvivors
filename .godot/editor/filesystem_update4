@@ -1,17 +1,6 @@
-res://Utility/die.tscn
 res://Enemies/enemy.gd
 res://Utility/enemy_spawner.gd
-res://World/world2.tres
-res://Utility/basic_button.tscn
-res://Player/player.tscn
-res://Utility/enemy_spawner.tscn
-res://World/world.tscn
-res://Player/player_data.tscn
-res://Utility/upgrade_db.tscn
-res://Utility/hurtbox.tscn
-res://Titlescreen/menu.tscn
-res://Utility/map_menu.tscn
-res://World/world2.tscn
-res://World/tile_map.tscn
+res://Utility/Joystick Controller.gd
+res://Utility/joystick_controller.tscn
 res://Utility/mapmenu.tscn
-res://World/LoadPlayerNodeData.gd
+res://Player/player.tscn
