@@ -366,3 +366,7 @@ func _on_btn_menu_click_end():
 	var _level = get_tree().change_scene_to_file("res://Titlescreen/menu.tscn")
 
 
+
+
+func _on_joy_stick_movement(mover):
+	print(mover)

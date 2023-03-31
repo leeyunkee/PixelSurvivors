@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://84o2w77ghl25"]
+
+[ext_resource type="Texture2D" uid="uid://dusnyn0qycens" path="res://Textures/GUI/joystick_base_outline.png" id="1_1he3g"]
+[ext_resource type="Script" path="res://Utility/JoyStick.gd" id="2_634hg"]
+[ext_resource type="Texture2D" uid="uid://1atd3x8p16x1" path="res://Textures/GUI/joystick_tip.png" id="3_ncele"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cniea"]
+radius = 95.0
+
+[node name="JoyStick" type="TouchScreenButton"]
+scale = Vector2(0.96, 0.96)
+texture_normal = ExtResource("1_1he3g")
+shape = SubResource("CircleShape2D_cniea")
+script = ExtResource("2_634hg")
+
+[node name="JoystickTip" type="Sprite2D" parent="."]
+position = Vector2(100, 100)
+texture = ExtResource("3_ncele")

@@ -1,15 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://cu1sp34ul6s32"]
+[gd_scene load_steps=5 format=3 uid="uid://bll6jp1elru5g"]
 
-[ext_resource type="Script" path="res://Utility/Joystick Controller.gd" id="1_3vo8n"]
 [ext_resource type="Texture2D" uid="uid://dusnyn0qycens" path="res://Textures/GUI/joystick_base_outline.png" id="2_lodtj"]
 [ext_resource type="Texture2D" uid="uid://cngk5gqyqhali" path="res://Textures/GUI/joystick_tip_arrows.png" id="3_xgqpd"]
+
+[sub_resource type="GDScript" id="GDScript_3qi7u"]
+script/source = "extends Area2D
+
+@onready var BigCicle = get_node(\"JoystickBaseOutline\")
+@onready var Dpad = get_node(\"JoystickBaseOutline/JoystickTipArrows\")
+
+var touched = false
+
+@onready var max_distance = get_node(\"CollisionShape2D\").shape.radius
+
+func _input(event):
+	if event is InputEventScreenTouch:
+		var distance = event.position.distance_to(BigCicle.global_position)
+		if distance < max_distance:
+			touched = true
+		else:
+			touched = false
+			Dpad.position = Vector2.ZERO
+			print(\"working\")
+	
+
+func _process(_delta):
+	if touched:
+		Dpad.global_position = get_global_mouse_position()
+
+ 
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v2jtr"]
 radius = 96.0
 
 [node name="Joystick Controller" type="Area2D"]
-position = Vector2(272, 176)
-script = ExtResource("1_3vo8n")
+script = SubResource("GDScript_3qi7u")
 
 [node name="JoystickBaseOutline" type="Sprite2D" parent="."]
 texture = ExtResource("2_lodtj")

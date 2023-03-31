@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjqi8vda12fms"]
+[gd_scene load_steps=29 format=3 uid="uid://cjqi8vda12fms"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_ql3w5"]
 [ext_resource type="Texture2D" uid="uid://cmhs5ipttw0r5" path="res://Textures/Player/idle/tile000.png" id="2_qt1h2"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dauhwot7w7kbn" path="res://Textures/GUI/health.png" id="16_hx4gk"]
 [ext_resource type="AudioStream" uid="uid://djblxubjvrsct" path="res://Audio/SoundEffect/Victory.wav" id="17_wcn4f"]
 [ext_resource type="PackedScene" uid="uid://c0ptuykjaowxg" path="res://Utility/basic_button.tscn" id="19_0bfns"]
+[ext_resource type="PackedScene" uid="uid://84o2w77ghl25" path="res://Utility/joy_stick.tscn" id="19_jxe5m"]
 [ext_resource type="AudioStream" uid="uid://b1ahnti48xca2" path="res://Audio/SoundEffect/sfx_loss.ogg" id="21_007rd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6jm8h"]
@@ -282,6 +283,10 @@ offset_right = 208.0
 offset_bottom = 56.0
 columns = 10
 
+[node name="JoyStick" parent="GUILayer" instance=ExtResource("19_jxe5m")]
+position = Vector2(256, 232)
+scale = Vector2(0.5, 0.5)
+
 [node name="snd_hurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_007rd")
 volume_db = -20.0
@@ -308,5 +313,6 @@ texture_progress_offset = Vector2(1, 0)
 [connection signal="area_entered" from="GrabArea" to="." method="_on_grab_area_area_entered"]
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]
 [connection signal="click_end" from="GUILayer/GUI/DeathPanel/btn_menu" to="." method="_on_btn_menu_click_end"]
+[connection signal="movement" from="GUILayer/JoyStick" to="." method="_on_joy_stick_movement"]
 
 [editable path="Hitbox"]

@@ -1,11 +1,9 @@
-<<<<<<< HEAD
+Sprite2D
 CollisionShape2D
-Area2D
 TouchScreenButton
-=======
+Area2D
 virtual_joystick
 Button
->>>>>>> b61d2aad519141e83929f53ae0dfac36d3020ef6
 Label
 TileMap
 CanvasLayer
@@ -15,7 +13,6 @@ Control
 Node
 Node2D
 AudioStreamPlayer
-Sprite2D
 DirectionalLight2D
 LightOccluder2D
 TextureRect
