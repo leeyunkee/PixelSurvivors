@@ -369,4 +369,4 @@ func _on_btn_menu_click_end():
 
 
 func _on_joy_stick_movement(mover):
-	print(mover)
+	velocity = mover * movement_speed

@@ -1,9 +1,7 @@
-res://Utility/joystick_controller.tscn
+res://Titlescreen/menu.tscn
 res://Enemies/enemy.gd
 res://Utility/enemy_spawner.gd
-res://Utility/Joystick Controller.gd
 res://Player/player.tscn
-res://Titlescreen/menu.tscn
-res://Utility/JoyStick.gd
 res://Utility/joy_stick.tscn
 res://Player/player.gd
+res://Utility/JoyStick.gd

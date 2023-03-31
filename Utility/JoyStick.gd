@@ -23,6 +23,8 @@ func _input(event):
 func _physics_process(_delta):
 	if joystick_active:
 		emit_signal("movement", move_vector)
+	else:
+		emit_signal("movement", Vector2.ZERO)
 
 func _get_joy_position():
 	var max_distance = self.get_shape().radius
