@@ -1,9 +1,0 @@
-res://Titlescreen/menu.tscn
-res://Enemies/enemy.gd
-res://Utility/enemy_spawner.gd
-res://Player/player.tscn
-res://Utility/joy_stick.tscn
-res://World/pause_controller.tscn
-res://Utility/pause_layer.tscn
-res://World/world.tscn
-res://Player/player.gd
