@@ -1,7 +1,9 @@
-res://Titlescreen/menu.tscn
+res://World/world.tscn
 res://Enemies/enemy.gd
 res://Utility/enemy_spawner.gd
+res://Titlescreen/menu.tscn
 res://Player/player.tscn
 res://Utility/joy_stick.tscn
-res://Player/player.gd
-res://Utility/JoyStick.gd
+res://World/pause_controller.tscn
+res://World/LoadPlayerNodeData.gd
+res://World/world.gd

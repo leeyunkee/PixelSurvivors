@@ -284,7 +284,8 @@ offset_bottom = 56.0
 columns = 10
 
 [node name="JoyStick" parent="GUILayer" instance=ExtResource("19_jxe5m")]
-position = Vector2(256, 232)
+process_mode = 1
+position = Vector2(16, 247)
 scale = Vector2(0.5, 0.5)
 
 [node name="snd_hurt" type="AudioStreamPlayer" parent="."]

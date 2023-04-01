@@ -7,14 +7,18 @@ signal load_me
 
 func _process(_delta):
 	if Input.is_action_just_pressed("Pause"):
-		if not is_paused:
+		_launch_pause_panel()
+
+
+func _launch_pause_panel():
+	if not is_paused:
 			get_tree().paused = true
 			self.show()
 			is_paused = true
-		else:
-			get_tree().paused = false
-			self.hide()
-			is_paused = false
+	else:
+		get_tree().paused = false
+		self.hide()
+		is_paused = false
 
 
 func _on_save_pressed():
@@ -30,3 +34,7 @@ func _on_load_pressed():
 	
 func _on_exit_pressed():
 	get_tree().quit(0)
+
+
+func _on_button_pressed():
+	_launch_pause_panel()

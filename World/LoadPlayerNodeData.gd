@@ -7,3 +7,5 @@ extends Node2D
 func _on_canvas_layer_load_me():
 	player_node.position = player.position
 	player_node.time = player.time
+
+
