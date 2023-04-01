@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cnolwyc74qjyy"]
+[gd_scene load_steps=29 format=3 uid="uid://cnolwyc74qjyy"]
 
 [ext_resource type="Script" path="res://World/LoadPlayerNodeData.gd" id="1_8b758"]
 [ext_resource type="PackedScene" uid="uid://bslv4euy6nxth" path="res://World/tile_map.tscn" id="2_8bhry"]
@@ -16,7 +16,9 @@
 [ext_resource type="AudioStream" uid="uid://c51uvktpg061n" path="res://Audio/Music/RadagonExtended.mp3" id="13_5vy8h"]
 [ext_resource type="Script" path="res://Audio/Music/snd_Music.gd" id="14_1ehgo"]
 [ext_resource type="Script" path="res://Scripts/SaveAndLoad.gd" id="15_wotw7"]
-[ext_resource type="PackedScene" uid="uid://bh2to7vgg31sf" path="res://Utility/pause_layer.tscn" id="17_ywci5"]
+[ext_resource type="Script" path="res://World/world.gd" id="17_ftjm4"]
+[ext_resource type="Texture2D" uid="uid://xlhxlq2s10yr" path="res://Textures/GUI/icons8-pause-30.png" id="18_5wjyt"]
+[ext_resource type="PackedScene" uid="uid://c8omeri7fty5a" path="res://World/pause_controller.tscn" id="18_jjgri"]
 
 [sub_resource type="Resource" id="Resource_ovsay"]
 script = ExtResource("6_n4cpm")
@@ -114,11 +116,29 @@ script = ExtResource("14_1ehgo")
 [node name="SaveandLoad" type="Node2D" parent="."]
 script = ExtResource("15_wotw7")
 
-[node name="Pause Layer" parent="." instance=ExtResource("17_ywci5")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+script = ExtResource("17_ftjm4")
+
+[node name="pauseController" parent="CanvasLayer" instance=ExtResource("18_jjgri")]
+
+[node name="Pause layer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="Pause layer"]
+process_mode = 3
+visible = false
+offset_left = 1.0
+offset_top = 20.0
+offset_right = 39.0
+offset_bottom = 58.0
+icon = ExtResource("18_5wjyt")
+metadata/_edit_use_anchors_ = true
 
 [connection signal="playerdeath" from="Player" to="snd_Music" method="_on_player_playerdeath"]
-[connection signal="load_me" from="Pause Layer" to="." method="_on_canvas_layer_load_me"]
-[connection signal="pressed" from="Pause Layer/pauseController/Panel/Exit" to="Pause Layer" method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Save" to="CanvasLayer" method="_on_save_pressed"]
+[connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Load" to="CanvasLayer" method="_on_load_pressed"]
+[connection signal="pressed" from="CanvasLayer/pauseController/Panel/Exit" to="CanvasLayer" method="_on_exit_pressed"]
+[connection signal="pressed" from="Pause layer/Button" to="CanvasLayer" method="_on_button_pressed"]
 
-[editable path="Pause Layer"]
-[editable path="Pause Layer/pauseController"]
+[editable path="CanvasLayer/pauseController"]

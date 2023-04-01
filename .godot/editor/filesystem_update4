@@ -6,4 +6,7 @@ res://Utility/joy_stick.tscn
 res://World/pause_controller.tscn
 res://Utility/pause_layer.tscn
 res://World/world.tscn
+res://World/world2.tscn
+res://World/world2.tres
+res://World/world.gd
 res://Player/player.gd

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cjqi8vda12fms"]
+[gd_scene load_steps=29 format=3 uid="uid://cjqi8vda12fms"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_ql3w5"]
 [ext_resource type="Texture2D" uid="uid://cmhs5ipttw0r5" path="res://Textures/Player/idle/tile000.png" id="2_qt1h2"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="10_hrinn"]
 [ext_resource type="Texture2D" uid="uid://cqd3ahe5gmi87" path="res://Textures/GUI/exp_background.png" id="11_r6pal"]
 [ext_resource type="Texture2D" uid="uid://bcta8hs2dqokr" path="res://Textures/GUI/exp_progress.png" id="12_ymbqn"]
-[ext_resource type="Texture2D" uid="uid://xlhxlq2s10yr" path="res://Textures/GUI/icons8-pause-30.png" id="13_flryt"]
 [ext_resource type="FontFile" uid="uid://er1ykjwqfhm8" path="res://Font/tenderness.otf" id="13_x1ktw"]
 [ext_resource type="AudioStream" uid="uid://bgsgedcis6kr8" path="res://Audio/SoundEffect/sfx_levelup.ogg" id="14_d1gvo"]
 [ext_resource type="Texture2D" uid="uid://bd6lgbrlitnc3" path="res://Textures/GUI/healthbar.png" id="15_65muo"]
@@ -285,24 +284,9 @@ offset_bottom = 56.0
 columns = 10
 
 [node name="JoyStick" parent="GUILayer" instance=ExtResource("19_jxe5m")]
+visible = false
 position = Vector2(12, 246)
 scale = Vector2(0.5, 0.5)
-
-[node name="Button" parent="GUILayer" instance=ExtResource("19_0bfns")]
-top_level = true
-custom_minimum_size = Vector2(20, 10)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -33.0
-offset_top = 20.0
-offset_right = 5.0
-offset_bottom = 58.0
-grow_horizontal = 0
-scale = Vector2(0.85, 0.85)
-text = ""
-icon = ExtResource("13_flryt")
-icon_alignment = 1
 
 [node name="snd_hurt" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("21_007rd")

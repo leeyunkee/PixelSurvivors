@@ -81,7 +81,7 @@ func _physics_process(delta):
 	time += delta
 	change_time()
 	healthBar.value = player.hp
-	move_and_slide()
+	movement()
 	
 
 func _on_virtual_joystick_analogic_chage(move:Vector2):
