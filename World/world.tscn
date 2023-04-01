@@ -385,11 +385,22 @@ script = ExtResource("1_c4dk7")
 
 [node name="pauseController" parent="CanvasLayer" instance=ExtResource("17_h3tnp")]
 
+[node name="Pause layer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="Pause layer"]
+process_mode = 3
+offset_left = 560.0
+offset_top = 310.0
+offset_right = 615.0
+offset_bottom = 341.0
+text = "Pause"
+
 [connection signal="playerdeath" from="Player" to="snd_Music" method="_on_player_playerdeath"]
 [connection signal="load_me" from="CanvasLayer" to="." method="_on_canvas_layer_load_me"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Save" to="CanvasLayer" method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Load" to="CanvasLayer" method="_on_load_pressed"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/Exit" to="CanvasLayer" method="_on_exit_pressed"]
+[connection signal="pressed" from="Pause layer/Button" to="CanvasLayer" method="_on_button_pressed"]
 
 [editable path="Player"]
 [editable path="Player/Hitbox"]
