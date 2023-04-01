@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bv4krtqmxrmft"]
+[gd_scene load_steps=29 format=3 uid="uid://bv4krtqmxrmft"]
 
 [ext_resource type="Texture2D" uid="uid://d1cvt0poyr0bq" path="res://Textures/TX Tileset Grass.png" id="1_01vhy"]
 [ext_resource type="Script" path="res://World/LoadPlayerNodeData.gd" id="1_5t4fh"]
@@ -17,8 +17,6 @@
 [ext_resource type="Script" path="res://Audio/Music/snd_Music.gd" id="13_hn5b7"]
 [ext_resource type="Script" path="res://Scripts/SaveAndLoad.gd" id="15_vg0rj"]
 [ext_resource type="PackedScene" uid="uid://c8omeri7fty5a" path="res://World/pause_controller.tscn" id="17_h3tnp"]
-[ext_resource type="PackedScene" uid="uid://c0ptuykjaowxg" path="res://Utility/basic_button.tscn" id="17_lah36"]
-[ext_resource type="Texture2D" uid="uid://xlhxlq2s10yr" path="res://Textures/GUI/icons8-pause-30.png" id="18_3rrbo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yp2ht"]
 texture = ExtResource("1_01vhy")
@@ -365,22 +363,6 @@ layer_0/tile_data = PackedInt32Array(-2883655, 589824, 3, -2883654, 589824, 2, -
 
 [node name="Player" parent="." instance=ExtResource("2_bsurs")]
 
-[node name="Button" parent="." instance=ExtResource("17_lah36")]
-top_level = true
-custom_minimum_size = Vector2(20, 10)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -33.0
-offset_top = 20.0
-offset_right = 5.0
-offset_bottom = 58.0
-grow_horizontal = 0
-scale = Vector2(0.85, 0.85)
-text = ""
-icon = ExtResource("18_3rrbo")
-icon_alignment = 1
-
 [node name="EnemySpawner" parent="." instance=ExtResource("3_u5cqh")]
 spawns = Array[ExtResource("4_t7b8q")]([SubResource("Resource_ovsay"), SubResource("Resource_38obc"), SubResource("Resource_wljbi"), SubResource("Resource_jtpq3"), SubResource("Resource_206jn"), SubResource("Resource_tptdc"), SubResource("Resource_f6d6n"), SubResource("Resource_2tigl"), SubResource("Resource_cay4d")])
 
@@ -404,7 +386,6 @@ script = ExtResource("1_c4dk7")
 [node name="pauseController" parent="CanvasLayer" instance=ExtResource("17_h3tnp")]
 
 [connection signal="playerdeath" from="Player" to="snd_Music" method="_on_player_playerdeath"]
-[connection signal="click_end" from="Button" to="Player" method="_on_button_click_end"]
 [connection signal="load_me" from="CanvasLayer" to="." method="_on_canvas_layer_load_me"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Save" to="CanvasLayer" method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/pauseController/Panel/VBoxContainer/Load" to="CanvasLayer" method="_on_load_pressed"]
