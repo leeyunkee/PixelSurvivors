@@ -1,6 +1,10 @@
-res://World/world.tscn
+res://Player/player.tscn
 res://Enemies/enemy.gd
 res://Utility/enemy_spawner.gd
-res://World/world2.tres
-res://Player/player.tscn
+res://World/world.tscn
+res://Utility/pause_layer.tscn
 res://Player/player.gd
+res://Titlescreen/menu.tscn
+res://Utility/joy_stick.tscn
+res://World/pause_controller.tscn
+res://World/world.gd

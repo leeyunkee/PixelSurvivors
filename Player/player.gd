@@ -366,3 +366,8 @@ func _on_btn_menu_click_end():
 	var _level = get_tree().change_scene_to_file("res://Titlescreen/menu.tscn")
 
 
+func _on_joy_stick_movement(mover):
+	velocity = mover * movement_speed
+
+func _on_button_click_end():
+	var _pause_screen = get_tree().change_scene_to_file("res://World/pause_controller.tscn")
