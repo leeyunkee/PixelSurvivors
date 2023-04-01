@@ -1,0 +1,133 @@
+[gd_scene load_steps=18 format=3 uid="uid://lw4rtka65thf"]
+
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_ot3gm"]
+[ext_resource type="Texture2D" uid="uid://pshnkpbiat13" path="res://Textures/Enemy/FlyingEye/eye-die-tile000.png" id="6_dkasy"]
+[ext_resource type="Texture2D" uid="uid://wkoooyei5hoj" path="res://Textures/Enemy/FlyingEye/eye-die-tile001.png" id="7_u0ryg"]
+[ext_resource type="Texture2D" uid="uid://v318fukg8p25" path="res://Textures/Enemy/FlyingEye/eye-die-tile002.png" id="8_oqmui"]
+[ext_resource type="Texture2D" uid="uid://b57ssd1juiagk" path="res://Textures/Enemy/FlyingEye/eye-die-tile003.png" id="9_y8hco"]
+[ext_resource type="Texture2D" uid="uid://c0ik2cof3fehm" path="res://Textures/Enemy/Golem/golem-tile000.png" id="10_yadb1"]
+[ext_resource type="Texture2D" uid="uid://hy5fhxv1skfw" path="res://Textures/Enemy/Golem/golem-tile001.png" id="11_x5p7q"]
+[ext_resource type="Texture2D" uid="uid://cs0y24b60v5w6" path="res://Textures/Enemy/Golem/golem-tile002.png" id="12_j4562"]
+[ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="13_hodec"]
+[ext_resource type="Texture2D" uid="uid://cofceshu1c6rq" path="res://Textures/Enemy/Golem/golem-tile003.png" id="13_jjvcb"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="18_fkmcy"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="19_a0hm5"]
+[ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="20_kcpxw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilkns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_dkasy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_u0ryg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_oqmui")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_y8hco")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_yadb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_x5p7q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_j4562")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_jjvcb")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cek8"]
+size = Vector2(26.6937, 102.533)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
+size = Vector2(49, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
+size = Vector2(42.4165, 38.6703)
+
+[node name="enemy_super" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_ot3gm")
+movement_speed = 150.0
+hp = 999999
+knockback_recovery = 99999.0
+experience = 100
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"move"
+autoplay = "move"
+speed_scale = 1.5
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"die"
+autoplay = "die"
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1.25721)
+scale = Vector2(0.899087, 0.248559)
+shape = SubResource("RectangleShape2D_3cek8")
+disabled = true
+
+[node name="Hitbox" parent="." instance=ExtResource("18_fkmcy")]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(-0.5, -3)
+shape = SubResource("RectangleShape2D_kf3hv")
+
+[node name="Hurtbox" parent="." instance=ExtResource("19_a0hm5")]
+visible = false
+scale = Vector2(0.87629, 0.879228)
+collision_layer = 2
+collision_mask = 2
+damage = 30
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(1.61525, -3.41209)
+shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("20_kcpxw")
+volume_db = -20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+show_behind_parent = true
+texture_filter = 2
+position = Vector2(2, 21)
+scale = Vector2(0.0640836, 0.047945)
+texture = ExtResource("13_hodec")
+
+[connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
+
+[editable path="Hitbox"]
+[editable path="Hurtbox"]

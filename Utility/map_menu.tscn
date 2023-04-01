@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://crwnom44lgip6"]
+
+[ext_resource type="Texture2D" uid="uid://dqgylrv61knjh" path="res://Textures/TitleScreen.png" id="1_v4a3p"]
+[ext_resource type="Script" path="res://Utility/map_menu.gd" id="1_xlcqg"]
+[ext_resource type="PackedScene" uid="uid://c0ptuykjaowxg" path="res://Utility/basic_button.tscn" id="2_l6pmr"]
+[ext_resource type="Texture2D" uid="uid://de3vl3oisxnan" path="res://Textures/1.png" id="3_vux1h"]
+[ext_resource type="Texture2D" uid="uid://nrdxi100lnty" path="res://Textures/2.png" id="4_x4goe"]
+[ext_resource type="FontFile" uid="uid://er1ykjwqfhm8" path="res://Font/tenderness.otf" id="6_aqkrm"]
+
+[node name="MapMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xlcqg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.439216, 0.439216, 0.439216, 1)
+texture_filter = 2
+layout_mode = 0
+offset_left = -6.0
+offset_top = -167.0
+offset_right = 1294.0
+offset_bottom = 1041.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_v4a3p")
+
+[node name="Map1Image" type="TextureRect" parent="."]
+top_level = true
+texture_filter = 1
+layout_mode = 0
+offset_left = 135.0
+offset_top = 65.0
+offset_right = 653.0
+offset_bottom = 1073.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_vux1h")
+
+[node name="Map2Image" type="TextureRect" parent="."]
+texture_filter = 2
+layout_mode = 0
+offset_left = 385.0
+offset_top = 65.0
+offset_right = 905.0
+offset_bottom = 1071.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_x4goe")
+expand_mode = 1
+
+[node name="Map1" parent="." instance=ExtResource("2_l6pmr")]
+top_level = true
+layout_mode = 0
+offset_left = 160.0
+offset_top = 260.0
+offset_right = 243.0
+offset_bottom = 290.0
+text = "Grassland"
+
+[node name="Map2" parent="." instance=ExtResource("2_l6pmr")]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 260.0
+offset_right = 490.0
+offset_bottom = 290.0
+text = "Dungeon"
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 250.0
+offset_top = 15.0
+offset_right = 406.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(1, 1, 0.74902, 1)
+theme_override_fonts/font = ExtResource("6_aqkrm")
+theme_override_font_sizes/font_size = 25
+text = "Choose the Map"
+
+[connection signal="click_end" from="Map1" to="." method="_on_map_1_click_end"]
+[connection signal="click_end" from="Map2" to="." method="_on_map_2_click_end"]

@@ -1,0 +1,182 @@
+[gd_scene load_steps=23 format=3 uid="uid://depu1lrewxvfd"]
+
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_hxqil"]
+[ext_resource type="Texture2D" uid="uid://bsjmmsehknyum" path="res://Textures/Enemy/Slime_Strong/slime-strong-die-0.png" id="2_3jlw7"]
+[ext_resource type="Texture2D" uid="uid://bou52lomr2bo5" path="res://Textures/Enemy/Slime_Strong/slime-strong-die-1.png" id="3_jsmlc"]
+[ext_resource type="Texture2D" uid="uid://kgigygas00tm" path="res://Textures/Enemy/Slime_Strong/slime-strong-die-2.png" id="4_ssno8"]
+[ext_resource type="Texture2D" uid="uid://c5xr5g7gj0l3v" path="res://Textures/Enemy/Slime_Strong/slime-strong-die-3.png" id="5_aqgyf"]
+[ext_resource type="Texture2D" uid="uid://bem8w3rpdsewj" path="res://Textures/Enemy/Slime_Strong/slime-trong-move-0.png" id="6_2l5sx"]
+[ext_resource type="Texture2D" uid="uid://dwewe00awbhc7" path="res://Textures/Enemy/Slime_Strong/slime-strong-move-0.png" id="6_jjg3e"]
+[ext_resource type="Texture2D" uid="uid://bawsak13vqq5" path="res://Textures/Enemy/Slime_Strong/slime-strong-move-1.png" id="7_ggfkc"]
+[ext_resource type="Texture2D" uid="uid://cdh47hsgs8a8x" path="res://Textures/Enemy/Slime_Strong/slime-strong-move-2.png" id="8_wrtsq"]
+[ext_resource type="Texture2D" uid="uid://cuo38sgootfeg" path="res://Textures/Enemy/Slime_Strong/slime-strong-move-3.png" id="9_6f7ue"]
+[ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="10_paske"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="14_1dy7m"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="15_eogwm"]
+[ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="16_10d4m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hcraq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3jlw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jsmlc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ssno8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_aqgyf")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_jjg3e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ggfkc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wrtsq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6f7ue")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hylhe"]
+load_path = "res://.godot/imported/slime-strong-move-1.png-7dab00ba7a2ee8568bdf1842c2a69ae1.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e8ej5"]
+load_path = "res://.godot/imported/slime-strong-move-2.png-61c4e58fca22f5eb844daf75bf8efa57.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4iwal"]
+load_path = "res://.godot/imported/slime-strong-move-3.png-42ffa0e20bc7a3c10cec368d0daf0c7a.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilkns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3jlw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jsmlc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ssno8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_aqgyf")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_hylhe")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_e8ej5")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_4iwal")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2l5sx")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d5qu"]
+radius = 11.1224
+height = 48.2783
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
+size = Vector2(35, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
+size = Vector2(25.1058, 13.0797)
+
+[node name="enemy_slime_strong" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_hxqil")
+movement_speed = 42.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_hcraq")
+animation = &"move"
+autoplay = "move"
+frame = 1
+frame_progress = 0.914971
+speed_scale = 0.7
+flip_h = true
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"die"
+autoplay = "die"
+speed_scale = 0.7
+flip_h = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+show_behind_parent = true
+texture_filter = 2
+position = Vector2(-2.9675, 13.1333)
+scale = Vector2(0.0566914, 0.0207652)
+texture = ExtResource("10_paske")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, 7)
+scale = Vector2(0.899087, 0.248559)
+shape = SubResource("CapsuleShape2D_6d5qu")
+
+[node name="Hitbox" parent="." instance=ExtResource("14_1dy7m")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0.5, 6.5)
+shape = SubResource("RectangleShape2D_kf3hv")
+
+[node name="Hurtbox" parent="." instance=ExtResource("15_eogwm")]
+scale = Vector2(0.87629, 0.879228)
+collision_layer = 2
+collision_mask = 2
+damage = 5
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(1.36039e-07, 8.81455)
+shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_10d4m")
+volume_db = -20.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
+
+[editable path="Hitbox"]
+[editable path="Hurtbox"]

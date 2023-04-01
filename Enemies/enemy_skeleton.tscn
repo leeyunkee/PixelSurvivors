@@ -1,0 +1,132 @@
+[gd_scene load_steps=18 format=3 uid="uid://s7efi5msjy8d"]
+
+[ext_resource type="Script" path="res://Enemies/enemy.gd" id="1_rx1xn"]
+[ext_resource type="Texture2D" uid="uid://d72lq2wlev4k" path="res://Textures/Enemy/Skeleton/skeleton-die-tile000.png" id="6_4aldh"]
+[ext_resource type="Texture2D" uid="uid://dcxddmlll4i3t" path="res://Textures/Enemy/Skeleton/skeleton-die-tile001.png" id="7_wtxr3"]
+[ext_resource type="Texture2D" uid="uid://b7mrc4qx0p8cm" path="res://Textures/Enemy/Skeleton/skeleton-die-tile002.png" id="8_vql12"]
+[ext_resource type="Texture2D" uid="uid://c131vln7wbiln" path="res://Textures/Enemy/Skeleton/skeleton-die-tile003.png" id="9_3qwfm"]
+[ext_resource type="Texture2D" uid="uid://c3of12dqk5v5" path="res://Textures/Player/shadow.png" id="10_ngg2r"]
+[ext_resource type="Texture2D" uid="uid://7kk6jodm1nil" path="res://Textures/Enemy/Skeleton/skeleton-tile000.png" id="10_xjpyk"]
+[ext_resource type="Texture2D" uid="uid://b1qu2fy53ioo7" path="res://Textures/Enemy/Skeleton/skeleton-tile001.png" id="11_58v0d"]
+[ext_resource type="Texture2D" uid="uid://bg3v03840yinb" path="res://Textures/Enemy/Skeleton/skeleton-tile002.png" id="12_wirdf"]
+[ext_resource type="Texture2D" uid="uid://cygv0mrh3wyly" path="res://Textures/Enemy/Skeleton/skeleton-tile003.png" id="13_5auxn"]
+[ext_resource type="PackedScene" uid="uid://dan0fcexocjus" path="res://Utility/hitbox.tscn" id="14_klf6b"]
+[ext_resource type="PackedScene" uid="uid://dovrdfym5b8" path="res://Utility/hurtbox.tscn" id="15_84sqm"]
+[ext_resource type="AudioStream" uid="uid://cxnnt8y7oqbm3" path="res://Audio/SoundEffect/sfx_enemyHit.ogg" id="16_q105l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ilkns"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4aldh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wtxr3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_vql12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3qwfm")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_xjpyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_58v0d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wirdf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_5auxn")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d5qu"]
+radius = 6.67344
+height = 168.974
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf3hv"]
+size = Vector2(47, 51)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_226lh"]
+size = Vector2(27.7742, 51.1813)
+
+[node name="enemy_slime_strong" type="CharacterBody2D"]
+collision_layer = 5
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_rx1xn")
+movement_speed = 25.0
+experience = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"move"
+autoplay = "move"
+speed_scale = 0.7
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ilkns")
+animation = &"die"
+autoplay = "die"
+speed_scale = 0.7
+flip_h = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+show_behind_parent = true
+texture_filter = 2
+position = Vector2(-4, 25)
+scale = Vector2(0.07, 0.049)
+texture = ExtResource("10_ngg2r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(5, 2)
+scale = Vector2(0.899087, 0.248559)
+shape = SubResource("CapsuleShape2D_6d5qu")
+
+[node name="Hitbox" parent="." instance=ExtResource("14_klf6b")]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(7.5, 0.5)
+shape = SubResource("RectangleShape2D_kf3hv")
+
+[node name="Hurtbox" parent="." instance=ExtResource("15_84sqm")]
+scale = Vector2(0.87629, 0.879228)
+collision_layer = 2
+collision_mask = 2
+damage = 6
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(5.70587, 3.41208)
+shape = SubResource("RectangleShape2D_226lh")
+
+[node name="DisableHurtBoxTimer" parent="Hurtbox" index="1"]
+one_shot = false
+
+[node name="snd_hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_q105l")
+volume_db = -20.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D2" to="." method="_on_animated_sprite_2d_2_animation_finished"]
+[connection signal="hurt" from="Hitbox" to="." method="_on_hitbox_hurt"]
+
+[editable path="Hitbox"]
+[editable path="Hurtbox"]

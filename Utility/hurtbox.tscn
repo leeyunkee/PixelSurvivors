@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dovrdfym5b8"]
+
+[ext_resource type="Script" path="res://Utility/hurtbox.gd" id="1_ojrxw"]
+
+[node name="Hurtbox" type="Area2D" groups=["attack"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_ojrxw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="DisableHurtBoxTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="DisableHurtBoxTimer" to="." method="_on_disable_hit_box_timer_timeout"]
