@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 res://World/world.tscn
 res://Enemies/enemy.gd
 res://Utility/enemy_spawner.gd
@@ -6,4 +7,15 @@ res://Player/player.tscn
 res://Utility/joy_stick.tscn
 res://World/pause_controller.tscn
 res://World/LoadPlayerNodeData.gd
+=======
+res://Player/player.tscn
+res://Enemies/enemy.gd
+res://Utility/enemy_spawner.gd
+res://World/world.tscn
+res://Utility/pause_layer.tscn
+res://Player/player.gd
+res://Titlescreen/menu.tscn
+res://Utility/joy_stick.tscn
+res://World/pause_controller.tscn
+>>>>>>> 10677bb484ca84c4259f8fc00e4785e3fb69f22a
 res://World/world.gd
